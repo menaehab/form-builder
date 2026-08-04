@@ -1,16 +1,12 @@
-import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
-import type { BreadcrumbItem } from '@/types';
+import React from 'react';
+import Navbar from '@/components/common/navbar';
 
-export default function AppLayout({
-    breadcrumbs = [],
-    children,
-}: {
-    breadcrumbs?: BreadcrumbItem[];
-    children: React.ReactNode;
-}) {
+export default function AppLayout({ children }: { children: React.ReactNode }) {
     return (
-        <AppLayoutTemplate breadcrumbs={breadcrumbs}>
-            {children}
-        </AppLayoutTemplate>
+        <div className="flex min-h-screen flex-col">
+            <Navbar />
+            <main className="flex flex-1 flex-col">{children}</main>
+        </div>
     );
 }
+
