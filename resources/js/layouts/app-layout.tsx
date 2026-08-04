@@ -1,13 +1,12 @@
 import React from 'react';
-import Navbar from '@/components/common/Navbar';
+import Navbar from '@/components/common/navbar';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="flex min-h-screen flex-col bg-background">
+        <div className="flex min-h-screen flex-col">
             <Navbar />
-            <main className="container mx-auto flex-1 px-4 py-6 sm:px-6 lg:px-8">
-                {children}
-            </main>
+            <main className="flex flex-1 flex-col">{children}</main>
         </div>
     );
 }
+

@@ -24,9 +24,9 @@ const Navbar = ({
     domainName = 'FormBuilder',
     logo = <Blocks size={26} />,
     navLinks = [
-        { name: 'Home', href: '/' },
-        { name: 'About Us', href: '#' },
-        { name: 'Contact Us', href: '#' },
+        // { name: 'Home', href: '/' },
+        // { name: 'About Us', href: '#' },
+        // { name: 'Contact Us', href: '#' },
     ],
     authLinks = {
         login: { text: 'Login', href: '/login' },
@@ -42,7 +42,7 @@ const Navbar = ({
 
     return (
         <nav
-            className={`flex items-center justify-between border-b px-6 py-4 ${className}`}
+            className={`flex items-center justify-between border-b px-6 py-4 ${className} sticky top-0 z-50`}
         >
             {/* Logo + Domain name */}
             <Link href="/" className="flex items-center gap-2">
