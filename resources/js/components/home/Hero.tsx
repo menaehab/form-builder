@@ -5,13 +5,6 @@ export default function Hero() {
     return (
         <div
             className="flex flex-1 items-center justify-center px-4 py-12"
-            style={{
-                backgroundImage: `
-            linear-gradient(to right, rgb(39 39 42 / 0.2) 1px, transparent 1px),
-            linear-gradient(to bottom, rgb(39 39 42 / 0.2) 1px, transparent 1px)
-            `,
-                backgroundSize: '40px 40px',
-            }}
         >
             <div className="text-center">
                 <h1 className="pb-2 text-5xl font-bold text-foreground md:text-6xl">
