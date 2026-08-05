@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Form extends Model
 {
     use HasUlids;
+
     protected $fillable = [
         'user_id',
         'name',

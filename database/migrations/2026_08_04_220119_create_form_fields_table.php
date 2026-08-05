@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('label');
             $table->string('type');
             $table->json('options')->nullable();
-            $table->json('answer')->nullable();
+            $table->text('answer')->nullable();
+            $table->boolean('is_required')->default(false);
             $table->foreignUlid('form_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

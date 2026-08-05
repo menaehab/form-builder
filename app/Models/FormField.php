@@ -15,11 +15,13 @@ class FormField extends Model
         'type',
         'options',
         'answer',
+        'is_required',
     ];
 
     protected $casts = [
         'options' => 'array',
         'answer' => 'array',
+        'is_required' => 'boolean',
     ];
 
     public function form()
