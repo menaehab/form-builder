@@ -27,7 +27,7 @@ class FormController extends Controller
             })
             ->paginate($data['per_page'] ?? 10);
 
-        return inertia('Forms/Index', compact('forms'));
+        return inertia('forms/index', compact('forms'));
     }
 
     /**
@@ -37,7 +37,7 @@ class FormController extends Controller
     {
         $types = FieldTypeEnum::cases();
 
-        return inertia('Forms/Create', compact('types'));
+        return inertia('forms/create', compact('types'));
     }
 
     /**
@@ -71,7 +71,7 @@ class FormController extends Controller
 
         $form->load('fields');
 
-        return inertia('Forms/Show', compact('form'));
+        return inertia('forms/show', compact('form'));
     }
 
     /**
@@ -81,7 +81,7 @@ class FormController extends Controller
     {
         $this->ensureOwned($form);
 
-        return inertia('Forms/Edit', compact('form'));
+        return inertia('forms/edit', compact('form'));
     }
 
     /**

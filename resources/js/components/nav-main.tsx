@@ -19,14 +19,30 @@ export function NavMain({
   const { url } = usePage()
   const currentPath = url.split("?")[0]
 
+  const activeItem = items.reduce(
+    (best, item) => {
+      if (item.url === "#" || item.url === "/") {
+        return currentPath === item.url ? item : best
+      }
+
+      const isMatch =
+        currentPath === item.url || currentPath.startsWith(item.url + "/")
+
+      if (isMatch && (!best || item.url.length > best.url.length)) {
+        return item
+      }
+
+      return best
+    },
+    null as (typeof items)[number] | null,
+  )
+
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
           {items.map((item) => {
-            const isActive =
-              currentPath === item.url ||
-              (item.url !== "#" && item.url !== "/" && currentPath.startsWith(item.url))
+            const isActive = item === activeItem
 
             return (
               <SidebarMenuItem key={item.title}>

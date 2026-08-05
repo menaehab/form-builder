@@ -1,4 +1,3 @@
-import * as React from "react"
 import {
   closestCenter,
   DndContext,
@@ -6,10 +5,11 @@ import {
   MouseSensor,
   TouchSensor,
   useSensor,
-  useSensors,
-  type DragEndEvent,
-  type UniqueIdentifier,
+  useSensors
+  
+  
 } from "@dnd-kit/core"
+import type {DragEndEvent, UniqueIdentifier} from "@dnd-kit/core";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers"
 import {
   arrayMove,
@@ -26,26 +26,29 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  useReactTable,
-  type ColumnDef,
-  type ColumnFiltersState,
-  type Row,
-  type SortingState,
-  type VisibilityState,
+  useReactTable
+  
+  
+  
+  
+  
 } from "@tanstack/react-table"
+import type {ColumnDef, ColumnFiltersState, Row, SortingState, VisibilityState} from "@tanstack/react-table";
+import { GripVerticalIcon, CircleCheckIcon, LoaderIcon, EllipsisVerticalIcon, Columns3Icon, ChevronDownIcon, PlusIcon, ChevronsLeftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronsRightIcon, TrendingUpIcon } from "lucide-react"
+import * as React from "react"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 import { toast } from "sonner"
 import { z } from "zod"
 
-import { useIsMobile } from "@/hooks/use-mobile"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent,
-  type ChartConfig,
+  ChartTooltipContent
+  
 } from "@/components/ui/chart"
+import type {ChartConfig} from "@/components/ui/chart";
 import { Checkbox } from "@/components/ui/checkbox"
 import {
   Drawer,
@@ -90,7 +93,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
-import { GripVerticalIcon, CircleCheckIcon, LoaderIcon, EllipsisVerticalIcon, Columns3Icon, ChevronDownIcon, PlusIcon, ChevronsLeftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronsRightIcon, TrendingUpIcon } from "lucide-react"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 export const schema = z.object({
   id: z.number(),
@@ -107,6 +110,7 @@ function DragHandle({ id }: { id: number }) {
   const { attributes, listeners } = useSortable({
     id,
   })
+
   return (
     <Button
       {...attributes}
@@ -242,9 +246,11 @@ const columns: ColumnDef<z.infer<typeof schema>>[] = [
     header: "Reviewer",
     cell: ({ row }) => {
       const isAssigned = row.original.reviewer !== "Assign reviewer"
+
       if (isAssigned) {
         return row.original.reviewer
       }
+
       return (
         <>
           <Label htmlFor={`${row.original.id}-reviewer`} className="sr-only">
@@ -308,6 +314,7 @@ function DraggableRow({ row }: { row: Row<z.infer<typeof schema>> }) {
   const { transform, transition, setNodeRef, isDragging } = useSortable({
     id: row.original.id,
   })
+
   return (
     <TableRow
       data-state={row.getIsSelected() && "selected"}
@@ -380,14 +387,17 @@ export function DataTable({
   })
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
+
     if (active && over && active.id !== over.id) {
       setData((data) => {
         const oldIndex = dataIds.indexOf(active.id)
         const newIndex = dataIds.indexOf(over.id)
+
         return arrayMove(data, oldIndex, newIndex)
       })
     }
   }
+
   return (
     <Tabs
       defaultValue="outline"
@@ -677,6 +687,7 @@ const chartConfig = {
 } satisfies ChartConfig
 function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
   const isMobile = useIsMobile()
+
   return (
     <Drawer swipeDirection={isMobile ? "down" : "right"}>
       <DrawerTrigger
