@@ -14,6 +14,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { dashboard } from "@/routes"
+import { index as formsIndex } from "@/routes/forms"
 
 
 
@@ -22,7 +24,7 @@ const data = {
     navMain: [
         {
         title: "Home",
-        url: "/dashboard",
+        url: dashboard.url(),
         icon: (
             <LayoutDashboardIcon
             />
@@ -30,7 +32,7 @@ const data = {
         },
         {
         title: "Forms",
-        url: "/forms",
+        url: formsIndex.url(),
         icon: (
             <ListIcon
             />

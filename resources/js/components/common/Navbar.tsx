@@ -34,7 +34,7 @@ const Navbar = ({
     },
     className = '',
 }: NavbarProps) => {
-    const user = usePage().props.auth?.user;
+    const user = usePage<any>().props.auth?.user;
 
     const handleLogout = () => {
         router.post(logout());
