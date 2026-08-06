@@ -81,6 +81,8 @@ class FormController extends Controller
     {
         $this->ensureOwned($form);
 
+        $form->load('fields');
+
         return inertia('forms/edit', compact('form'));
     }
 

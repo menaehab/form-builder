@@ -1,36 +1,29 @@
 import { useForm, Link } from '@inertiajs/react';
 import { Plus } from 'lucide-react';
 
-import FieldCard from '@/components/forms/field-card';
-import { makeEmptyField, requiresOptions } from '@/components/forms/types';
-import type { FieldType, FormErrors, FormField } from '@/components/forms/types';
-
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import InputError from '@/components/ui/input-error';
-import { update as formsUpdate, index as formsIndex } from '@/routes/forms';
+import { store as formsStore, index as formsIndex } from '@/routes/forms';
 
-type Form = {
-    id: string;
-    name: string;
-    description: string;
-    fields: FormField[];
-};
+import FieldCard from './field-card';
+import { makeEmptyField, requiresOptions } from './types';
+import type { FieldType, FormErrors, FormField } from './types';
 
-export default function Edit({ form }: { form: Form }) {
-    const { data, setData, put, processing, errors } = useForm({
-        name: form.name,
-        description: form.description,
-        fields: form.fields.length ? form.fields : [makeEmptyField()] as FormField[],
+export default function FormForm() {
+    const { data, setData, post, processing, errors } = useForm({
+        name: '',
+        description: '',
+        fields: [makeEmptyField()] as FormField[],
     });
 
     const fieldErrors = errors as unknown as FormErrors;
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        put(formsUpdate.url({ id: form.id }));
+        post(formsStore.url());
     }
 
     function addField() {
@@ -56,7 +49,7 @@ export default function Edit({ form }: { form: Form }) {
                 }
 
                 return next;
-            })
+            }),
         );
     }
 
@@ -64,8 +57,8 @@ export default function Edit({ form }: { form: Form }) {
         setData(
             'fields',
             data.fields.map((field, i) =>
-                i === fieldIndex ? { ...field, options: [...field.options, ''] } : field
-            )
+                i === fieldIndex ? { ...field, options: [...field.options, ''] } : field,
+            ),
         );
     }
 
@@ -76,10 +69,12 @@ export default function Edit({ form }: { form: Form }) {
                 i === fieldIndex
                     ? {
                           ...field,
-                          options: field.options.map((opt, oi) => (oi === optionIndex ? value : opt)),
+                          options: field.options.map((opt, oi) =>
+                              oi === optionIndex ? value : opt,
+                          ),
                       }
-                    : field
-            )
+                    : field,
+            ),
         );
     }
 
@@ -87,8 +82,10 @@ export default function Edit({ form }: { form: Form }) {
         setData(
             'fields',
             data.fields.map((field, i) =>
-                i === fieldIndex ? { ...field, options: field.options.filter((_, oi) => oi !== optionIndex) } : field
-            )
+                i === fieldIndex
+                    ? { ...field, options: field.options.filter((_, oi) => oi !== optionIndex) }
+                    : field,
+            ),
         );
     }
 
@@ -170,7 +167,7 @@ export default function Edit({ form }: { form: Form }) {
             {/* Actions */}
             <div className="flex items-center gap-3">
                 <Button type="submit" disabled={processing}>
-                    {processing ? 'Updating...' : 'Update Form'}
+                    {processing ? 'Creating...' : 'Create Form'}
                 </Button>
                 <Link href={formsIndex.url()}>
                     <Button type="button" variant="outline">
