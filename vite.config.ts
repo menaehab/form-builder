@@ -28,4 +28,15 @@ export default defineConfig({
             formVariants: true,
         }),
     ],
+    server: {
+        host: '0.0.0.0',
+        port: 5173,
+        hmr: {
+            host: 'localhost',
+        },
+        watch: {
+            usePolling: true,
+            ignored: ['**/node_modules/**', '**/vendor/**', '**/.git/**', '**/storage/**'],
+        },
+    },
 });
